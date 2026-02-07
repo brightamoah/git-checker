@@ -3,7 +3,7 @@ const showControls = ref(false);
 </script>
 
 <template>
-  <header class="top-0 z-50 sticky bg-transparent shadow backdrop-blur-sm mx-auto mt-4 border-default border-b rounded-full w-[95%]">
+  <header class="top-0 z-50 sticky bg-transparent shadow backdrop-blur-sm mx-auto mt-4 border-default border-b rounded-full w-full">
     <div class="flex justify-between items-center gap-4 mx-auto px-4 sm:px-6 lg:px-8 w-full h-14">
       <AppLogo />
 

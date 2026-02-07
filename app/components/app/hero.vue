@@ -13,16 +13,16 @@ const state = defineModel<GetProfileSchema>("state", { required: true });
     :ui="{
       title: 'font-newsreader font-semibold w-full md:max-w-5xl mx-auto',
       description: 'animate-fade-in-up animation-delay-600 mt-2.5',
+      container: 'animate-fade-in',
     }"
   >
     <template #headline>
-      <div class="flex justify-center items-center gap-4 w-full">
+      <div class="flex justify-center items-center gap-4 w-full animate-fade-in-delay-1">
         <UBadge
           color="neutral"
-
           size="sm"
           variant="solid"
-          class="flex items-center bg-inverted mb-1 px-2 rounded-full font-medium text-sm"
+          class="flex items-center bg-muted dark:bg-black drop-shadow-sm backdrop-blur-3xl mb-1 px-2 border-[0.2px] border-muted rounded-full font-medium text-sm"
         >
           <UChip
             standalone
@@ -32,9 +32,9 @@ const state = defineModel<GetProfileSchema>("state", { required: true });
             class="mr-1 border-0 outline-0"
           />
 
-          <span class="font-bold">{{ formatNumber(4600) }}</span>
+          <span class="font-bold text-highlighted">{{ formatNumber(4600) }}</span>
 
-          <span class="text-inverted/75">portfolios generated</span>
+          <span class="text-highlighted">portfolios generated</span>
         </UBadge>
       </div>
     </template>
@@ -69,6 +69,7 @@ const state = defineModel<GetProfileSchema>("state", { required: true });
               size="xl"
               label="Generate"
               type="submit"
+              :loading="isLoading"
             />
           </template>
         </UInput>

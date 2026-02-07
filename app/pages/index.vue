@@ -3,13 +3,13 @@ const state = ref<GetProfileSchema>({
   username: "",
 });
 
-const router = useRouter();
-const isLoading = ref(false);
+const navigationState = useNavigationState();
+
+const isLoading = computed(() => unref(navigationState.isLoading));
 
 function handleSearch() {
   if (state.value.username.trim()) {
-    isLoading.value = true;
-    router.push(`/${state.value.username.trim()}?template=github`);
+    navigationState.navigateToProfile(state.value.username.trim());
   }
 }
 </script>
@@ -21,8 +21,12 @@ function handleSearch() {
     <AppHero
       :state
       :search="handleSearch"
-      :is-loading="isLoading"
+      :is-loading
     />
+
+    <AppScreenshot />
+
+    <AppFeatures />
   </main>
 </template>
 
