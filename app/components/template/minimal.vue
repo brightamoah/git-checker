@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div>
+  <div class="cursor-pointer">
     <h1>minimal</h1>
   </div>
 </template>
