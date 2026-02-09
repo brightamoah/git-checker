@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const showControls = ref(false);
+const { showControls, targetUsername } = useNavigationState();
 </script>
 
 <template>
@@ -8,12 +8,15 @@ const showControls = ref(false);
       <AppLogo />
 
       <section class="flex gap-4 mx-auto w-full max-w-lg">
-        <NavSearch v-if="!showControls" />
+        <NavSearch
+          v-if="!showControls"
+          :username="targetUsername"
+        />
 
         <NavControls v-else />
       </section>
 
-      <NavActions />
+      <NavActions :show-controls />
     </div>
   </header>
 </template>

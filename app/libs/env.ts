@@ -10,6 +10,8 @@ const EnvSchema = z.object({
   NUXT_GITHUB_REPO_URL: z.url(),
   NUXT_AUTHOR_GITHUB_URL: z.url(),
   NUXT_AUTHOR_LINKEDIN_URL: z.url(),
+  NUXT_GITHUB_GRAPHQL_URL: z.url(),
+  NUXT_GITHUB_REST_URL: z.url(),
 });
 
 export type EnvSchema = z.infer<typeof EnvSchema>;

@@ -31,7 +31,7 @@ async function handleSearch() {
           <UFieldGroup class="flex-1 rounded-2xl">
             <UInput
               v-model="username"
-              icon="i-lucide-github"
+              icon="i-simple-icons-github"
               placeholder="Enter GitHub username..."
               size="xl"
               class="flex-1 rounded-2xl"

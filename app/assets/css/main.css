@@ -9,6 +9,13 @@
     --ui-bg: var(--ui-color-neutral-950);
 }
 
+html {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	scroll-behavior: smooth;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
 @theme static {
   --font-newsreader: "Newsreader", serif;
   --font-geist: "Geist", sans-serif;
@@ -26,6 +33,16 @@
   --color-drake-800: oklch(0.3274 0.0374 187.3749);
   --color-drake-900: oklch(0.2639 0.0252 187.2776);
   --color-drake-950: oklch(0.1997 0.0134 187.6179);
+}
+
+::selection {
+	background-color: var(--ui-color-primary-400);
+	color: var(--ui-text-highlighted); /* Ensure visibility */
+}
+
+:focus-visible {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
 }
 
 /* Scrollbar styling */

@@ -3,6 +3,8 @@ const state = ref<GetProfileSchema>({
   username: "",
 });
 
+const count = ref(1000);
+
 const navigationState = useNavigationState();
 
 const isLoading = computed(() => unref(navigationState.isLoading));
@@ -20,13 +22,18 @@ function handleSearch() {
 
     <AppHero
       :state
-      :search="handleSearch"
       :is-loading
+      :count
+      :search="handleSearch"
     />
 
     <AppScreenshot />
 
     <AppFeatures />
+
+    <AppFeaturedProfiles />
+
+    <AppCallToAction />
   </main>
 </template>
 

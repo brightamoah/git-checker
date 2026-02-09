@@ -33,7 +33,7 @@ watchEffect(() => {
 <template>
   <section class="flex items-center gap-2">
     <UButton
-      icon="i-lucide-arrow-up-narrow-wide"
+      icon="i-heroicons-chart-bar"
       variant="ghost"
       class="cursor-pointer"
       :to="{ name: 'rankings' }"
@@ -89,7 +89,7 @@ watchEffect(() => {
       <span v-if="starCount !== null">
         {{ formatStarCount(starCount) }}
         <span class="hidden md:inline">
-          Github Star
+          GitHub Star
           <span v-if="starCount > 1">s</span>
         </span>
 

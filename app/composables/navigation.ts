@@ -1,10 +1,18 @@
-export type NavigationPhase = "idle" | "exiting" | "entering";
-
-const isLoading = ref(false);
-const targetUsername = ref<string | null>(null);
-const phase = ref<NavigationPhase>("idle");
-
 export function useNavigationState() {
+  const route = useRoute();
+  const router = useRouter();
+
+  const isLoading = useState<boolean>("nav-isLoading", () => false);
+
+  const targetUsername = useState<string>("nav-targetUsername", () => "");
+
+  const phase = useState<NavigationPhase>("nav-phase", () => "idle");
+
+  const showControls = useState<boolean>("nav-showControls", () => false);
+
+  const template = useState<TemplateType>("selected-template", () =>
+    (route.query.template as TemplateType) || "github");
+
   const navigateToProfile = async (username: string) => {
     if (isLoading.value) return;
 
@@ -15,16 +23,20 @@ export function useNavigationState() {
     // Wait for exit animation to complete before navigating
     await new Promise(resolve => setTimeout(resolve, 700));
 
-    // Navigate to the profile page (skeleton will show while data loads)
-    await navigateTo(`/${username.trim()}?template=github`);
+    await navigateTo(`/${username.trim()}?template=${template.value}`);
 
     phase.value = "entering";
 
     setTimeout(() => {
       phase.value = "idle";
       isLoading.value = false;
-      targetUsername.value = null;
+      targetUsername.value = "";
     }, 900);
+  };
+
+  const updateTemplate = (newTemplate: TemplateType) => {
+    template.value = newTemplate;
+    router.push({ query: { ...route.query, template: newTemplate } });
   };
 
   const profileLoaded = () => {
@@ -36,24 +48,26 @@ export function useNavigationState() {
       setTimeout(() => {
         phase.value = "idle";
         isLoading.value = false;
-        targetUsername.value = null;
+        targetUsername.value = "";
       }, 500);
     }
   };
 
   const reset = () => {
     isLoading.value = false;
-    targetUsername.value = null;
+    targetUsername.value = "";
     phase.value = "idle";
   };
 
   return {
-
-    isLoading: readonly(isLoading),
-    targetUsername: readonly(targetUsername),
-    phase: readonly(phase),
+    isLoading,
+    targetUsername,
+    phase,
+    showControls,
+    template,
     navigateToProfile,
     profileLoaded,
     reset,
+    updateTemplate,
   };
 }

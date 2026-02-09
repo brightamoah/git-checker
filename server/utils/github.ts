@@ -1,6 +1,6 @@
 import { graphql } from "@octokit/graphql";
 
-export async function fetchGitHubProfile(username: string, token?: string): Promise<GitHubProfile> {
+export async function fetchGitHubProfileOld(username: string, token?: string): Promise<GitHubProfile> {
   const graphqlWithAuth = token
     ? graphql.defaults({ headers: { authorization: `token ${token}` } })
     : graphql;
@@ -149,7 +149,7 @@ function calculateLanguageStats(repos: any[]): LanguageStats[] {
   return Array.from(langMap.entries())
     .map(([name, data]) => ({
       name,
-      color: data.color as ColorType,
+      color: data.color,
       size: data.size,
       percentage: (data.size / total) * 100,
     }))

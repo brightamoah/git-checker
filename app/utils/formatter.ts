@@ -21,3 +21,8 @@ export function formatDate(dateString: string): string {
   const date = new Date(dateString);
   return useDateFormat(date, "MMM dd, yyyy").value;
 }
+
+export function formatJoinDate(dateString: string): string {
+  const date = new Date(dateString);
+  return `Joined ${useDateFormat(date, "MMM YYYY").value}`;
+}

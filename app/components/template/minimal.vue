@@ -4,11 +4,7 @@
 
 <template>
   <div>
-    <AppNavbar />
-
-    <slot />
-
-    <AppFooter />
+    <h1>minimal</h1>
   </div>
 </template>
 

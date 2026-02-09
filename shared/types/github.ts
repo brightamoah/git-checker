@@ -1,4 +1,4 @@
-export type ColorType = "primary" | "secondary" | "success" | "info" | "warning" | "error";
+// export type ColorType = "primary" | "secondary" | "success" | "info" | "warning" | "error";
 
 export interface GitHubUser {
   login: string;
@@ -24,18 +24,34 @@ export interface GitHubRepository {
   forkCount: number;
   primaryLanguage: {
     name: string;
-    color: ColorType;
+    color: string;
   } | null;
   isPrivate: boolean;
   isFork: boolean;
+  isArchived: boolean;
+  topics: string[];
+  pushedAt: string | null;
   createdAt: string;
-  updatedAt: string;
+  updatedAt?: string;
   homepageUrl: string | null;
+  languages?: RepositoryLanguages;
+}
+
+export interface RepositoryLanguageEdge {
+  size: number;
+  node: {
+    name: string;
+    color: string;
+  };
+}
+
+export interface RepositoryLanguages {
+  edges: RepositoryLanguageEdge[];
 }
 
 export interface LanguageStats {
   name: string;
-  color: ColorType;
+  color: string;
   percentage: number;
   size: number;
 }
@@ -43,23 +59,49 @@ export interface LanguageStats {
 export interface ContributionDay {
   contributionCount: number;
   date: string;
-  color: ColorType;
-  contributionLevel: string;
+  color: string;
+  contributionLevel?: string;
 }
 
 export interface ContributionWeek {
   contributionDays: ContributionDay[];
 }
 
-export interface ContributionsCollection {
-  contributionCalendar: {
-    totalContributions: number;
-    weeks: ContributionWeek[];
+export interface ContributionCalendar {
+  totalContributions: number;
+  weeks: ContributionWeek[];
+}
+
+export interface RepositoryContribution {
+  repository: {
+    nameWithOwner: string;
+    owner: { login: string };
+    primaryLanguage: { name: string; color: string } | null;
+    stargazerCount?: number;
   };
+  contributions: {
+    totalCount: number;
+  };
+}
+
+export interface ExternalContribution {
+  repoName: string;
+  owner: string;
+  prCount: number;
+  commitCount: number;
+  language: { name: string; color: string } | null;
+  stargazerCount: number;
+}
+
+export interface ContributionsCollection {
   totalCommitContributions: number;
-  totalPullRequestContributions: number;
   totalIssueContributions: number;
-  totalRepositoryContributions: number;
+  totalPullRequestContributions: number;
+  totalPullRequestReviewContributions: number;
+  contributionCalendar: ContributionCalendar;
+  externalContributions?: ExternalContribution[];
+  externalPRCount?: number;
+  externalCommitCount?: number;
 }
 
 export interface GitHubProfile {
@@ -79,7 +121,158 @@ export interface GitHubProfile {
   };
 }
 
+// GraphQL API Response Types
+export interface GraphQLUserResponse {
+  user: {
+    login: string;
+    name: string | null;
+    bio: string | null;
+    avatarUrl: string;
+    location: string | null;
+    company: string | null;
+    websiteUrl: string | null;
+    twitterUsername: string | null;
+    email: string | null;
+    followers: { totalCount: number };
+    following: { totalCount: number };
+    createdAt: string;
+    updatedAt: string;
+    repositories: {
+      totalCount: number;
+      nodes: Array<{
+        name: string;
+        description: string | null;
+        url: string;
+        homepageUrl: string | null;
+        stargazerCount: number;
+        forkCount: number;
+        primaryLanguage: { name: string; color: string } | null;
+        languages: {
+          edges: Array<{
+            size: number;
+            node: { name: string; color: string };
+          }>;
+        };
+        isPrivate: boolean;
+        isFork: boolean;
+        isArchived: boolean;
+        repositoryTopics: {
+          nodes: Array<{ topic: { name: string } }>;
+        };
+        pushedAt: string | null;
+        createdAt: string;
+      }>;
+    };
+    pinnedItems: {
+      nodes: Array<{
+        name: string;
+        description: string | null;
+        url: string;
+        homepageUrl: string | null;
+        stargazerCount: number;
+        forkCount: number;
+        primaryLanguage: { name: string; color: string } | null;
+        languages: {
+          edges: Array<{
+            size: number;
+            node: { name: string; color: string };
+          }>;
+        };
+        isPrivate: boolean;
+        isFork: boolean;
+        isArchived: boolean;
+        repositoryTopics: {
+          nodes: Array<{ topic: { name: string } }>;
+        };
+        pushedAt: string | null;
+        createdAt: string;
+      }>;
+    };
+    contributionsCollection: {
+      totalCommitContributions: number;
+      totalIssueContributions: number;
+      totalPullRequestContributions: number;
+      totalPullRequestReviewContributions: number;
+      contributionCalendar: {
+        totalContributions: number;
+        weeks: Array<{
+          contributionDays: Array<{
+            date: string;
+            contributionCount: number;
+            color: string;
+          }>;
+        }>;
+      };
+      pullRequestContributionsByRepository: Array<{
+        repository: {
+          nameWithOwner: string;
+          owner: { login: string };
+          primaryLanguage: { name: string; color: string } | null;
+          stargazerCount: number;
+        };
+        contributions: {
+          totalCount: number;
+        };
+      }>;
+      commitContributionsByRepository: Array<{
+        repository: {
+          nameWithOwner: string;
+          owner: { login: string };
+          primaryLanguage: { name: string; color: string } | null;
+        };
+        contributions: {
+          totalCount: number;
+        };
+      }>;
+    };
+  } | null;
+}
+
+// REST API Response Types
+export interface RESTUserResponse {
+  login: string;
+  name: string | null;
+  bio: string | null;
+  avatar_url: string;
+  location: string | null;
+  company: string | null;
+  blog: string | null;
+  twitter_username: string | null;
+  email: string | null;
+  followers: number;
+  following: number;
+  created_at: string;
+  updated_at: string;
+  public_repos: number;
+}
+
+export interface RESTRepoResponse {
+  name: string;
+  description: string | null;
+  html_url: string;
+  homepage: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  language: string | null;
+  private: boolean;
+  fork: boolean;
+  archived: boolean;
+  topics: string[];
+  pushed_at: string | null;
+  created_at: string;
+}
+
+// API Error Types
+export interface GitHubError {
+  type: "NOT_FOUND" | "RATE_LIMIT" | "UNAUTHORIZED" | "UNKNOWN";
+  message: string;
+  status?: number;
+}
+
+export type GitHubResult<T> = { success: true; data: T } | { success: false; error: GitHubError };
+
 export type TemplateType = "github" | "bento" | "minimal";
+export type NavigationPhase = "idle" | "exiting" | "entering";
 
 export const LANGUAGE_COLORS: Record<string, string> = {
   "TypeScript": "#3178c6",
@@ -103,4 +296,18 @@ export const LANGUAGE_COLORS: Record<string, string> = {
   "SCSS": "#c6538c",
   "Shell": "#89e051",
   "Dockerfile": "#384d54",
+  "Less": "#1d365d",
+  "Makefile": "#427819",
+  "Assembly": "#6E4C13",
+
 };
+
+export type RepoType = "original" | "fork" | "all";
+
+export interface ProfileProps {
+  username?: string;
+  template?: TemplateType;
+  views?: number;
+  profile?: GitHubProfile;
+  showStarsFilter?: boolean;
+}

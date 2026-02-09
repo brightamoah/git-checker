@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-defineProps<{
+const { count = 10 } = defineProps<{
   search: () => void;
   isLoading: boolean;
+  count?: number;
 }>();
 const state = defineModel<GetProfileSchema>("state", { required: true });
 </script>
@@ -32,7 +33,7 @@ const state = defineModel<GetProfileSchema>("state", { required: true });
             class="mr-1 border-0 outline-0"
           />
 
-          <span class="font-bold text-highlighted">{{ formatNumber(4600) }}</span>
+          <span class="font-bold text-highlighted">{{ formatNumber(count) }}</span>
 
           <span class="text-highlighted">portfolios generated</span>
         </UBadge>
@@ -55,12 +56,13 @@ const state = defineModel<GetProfileSchema>("state", { required: true });
       >
         <UInput
           v-model="state.username"
-          icon="i-lucide-github"
+          icon="i-simple-icons-github"
           placeholder="Enter GitHub username..."
           size="xl"
           class="w-full"
           :ui="{
             base: 'rounded-full py-5 pl-12 pr-32 w-full',
+            leadingIcon: 'size-7',
           }"
         >
           <template #trailing>

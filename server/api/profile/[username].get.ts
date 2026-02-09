@@ -1,16 +1,17 @@
 export default defineEventHandler(async (event) => {
   const username = getRouterParam(event, "username");
-  const config = useRuntimeConfig();
 
-  if (!username) {
+  const cleanUsername = getProfileSchema.shape.username.safeParse(username);
+
+  if (!cleanUsername.success) {
     throw createError({
       statusCode: 400,
-      message: "Username is required",
+      message: cleanUsername.error.issues.map(e => e.message).join(", "),
     });
   }
 
   try {
-    const profile = await fetchGitHubProfile(username, config.githubToken);
+    const profile = await fetchUserGraphQL(cleanUsername.data);
     return profile;
   }
   catch (error: any) {

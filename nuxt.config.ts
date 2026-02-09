@@ -32,6 +32,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     githubToken: env.NUXT_GITHUB_TOKEN,
+    githubGraphQLUrl: env.NUXT_GITHUB_GRAPHQL_URL,
+    githubRestUrl: env.NUXT_GITHUB_REST_URL,
     public: {
       githubApiUrl: env.NUXT_GITHUB_API_URL,
       githubRepoUrl: env.NUXT_GITHUB_REPO_URL,
