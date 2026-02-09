@@ -34,37 +34,39 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section
-    ref="sectionEl"
-    class="z-10 relative -mt-10 px-4 sm:px-6 pb-20"
-  >
-    <div
-      class="mx-auto max-w-6xl"
-      style="perspective: 1200px;"
+  <ClientOnly>
+    <section
+      ref="sectionEl"
+      class="z-10 relative -mt-10 px-4 sm:px-6 pb-20"
     >
       <div
-        class="relative transition-transform duration-75 ease-out"
-        :style="{
-          transform: `rotateX(${rotateX}deg)`,
-          transformOrigin: 'center bottom',
-          willChange: 'transform',
-        }"
+        class="mx-auto max-w-6xl"
+        style="perspective: 1200px;"
       >
-        <div class="-bottom-6 absolute inset-x-16 bg-primary/40 opacity-70 blur-3xl h-20" />
+        <div
+          class="relative transition-transform duration-75 ease-out"
+          :style="{
+            transform: `rotateX(${rotateX}deg)`,
+            transformOrigin: 'center bottom',
+            willChange: 'transform',
+          }"
+        >
+          <div class="-bottom-6 absolute inset-x-16 bg-primary/40 opacity-70 blur-3xl h-20" />
 
-        <div class="relative bg-neutral-50 shadow-2xl border border-muted rounded-2xl md:rounded-3xl overflow-hidden">
-          <UColorModeImage
-            light="/images/screenshot-light.png"
-            dark="/images/screenshot-dark.png"
-            alt="Screenshot of the generated GitHub portfolio"
-            class="block w-full h-auto"
-          />
+          <div class="relative bg-neutral-50 shadow-2xl border border-muted rounded-2xl md:rounded-3xl overflow-hidden">
+            <UColorModeImage
+              light="/images/screenshot-light.png"
+              dark="/images/screenshot-dark.png"
+              alt="Screenshot of the generated GitHub portfolio"
+              class="block w-full h-auto"
+            />
 
-          <div class="bottom-0 absolute inset-x-0 bg-linear-to-t from-bg-primary/50 to-transparent h-20" />
+            <div class="bottom-0 absolute inset-x-0 bg-linear-to-t from-bg-primary/50 to-transparent h-20" />
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </ClientOnly>
 </template>
 
 <style scoped>

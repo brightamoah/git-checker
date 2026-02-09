@@ -1,28 +1,15 @@
 <script lang="ts" setup>
-const { username = "" } = defineProps<{
-  username?: string;
-}>();
+const { navigateToProfile, targetUsername, isLoading } = useNavigationState();
 
-const router = useRouter();
-const searchValue = ref("");
-const isLoading = ref(false);
-const isSearchFocused = ref(false);
-
-watch(() => username, (newUsername) => {
-  if (newUsername) searchValue.value = newUsername;
-}, { immediate: true });
-
-function handleSearch(event: KeyboardEvent) {
-  if (event.key === "Enter" && searchValue.value.trim()) {
-    isLoading.value = true;
-    router.push(`/${searchValue.value.trim()}?template=github`);
-  }
+function onEnter() {
+  if (targetUsername.value.trim() === "") return;
+  navigateToProfile(targetUsername.value);
 }
 </script>
 
 <template>
   <UInput
-    v-model="searchValue"
+    v-model="targetUsername"
     icon="i-lucide-search"
     placeholder="Enter GitHub username..."
     size="xl"
@@ -31,9 +18,7 @@ function handleSearch(event: KeyboardEvent) {
       base: 'rounded-lg',
     }"
     :disabled="isLoading"
-    @blur="() => isSearchFocused = false"
-    @focus="() => isSearchFocused = true"
-    @keydown="handleSearch"
+    @keydown.enter="onEnter"
   />
 </template>
 

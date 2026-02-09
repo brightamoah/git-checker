@@ -10,20 +10,20 @@ export function useNavigationState() {
 
   const showControls = useState<boolean>("nav-showControls", () => false);
 
-  const template = useState<TemplateType>("selected-template", () =>
-    (route.query.template as TemplateType) || "github");
+  const template = useState<TemplateType>("selected-template", () => "github");
 
   const navigateToProfile = async (username: string) => {
     if (isLoading.value) return;
 
-    targetUsername.value = username;
     isLoading.value = true;
     phase.value = "exiting";
 
     // Wait for exit animation to complete before navigating
-    await new Promise(resolve => setTimeout(resolve, 700));
+    await new Promise(resolve => setTimeout(resolve, 300));
 
-    await navigateTo(`/${username.trim()}?template=${template.value}`);
+    await navigateTo(`/${username.trim()}`);
+
+    targetUsername.value = username;
 
     phase.value = "entering";
 

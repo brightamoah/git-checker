@@ -7,7 +7,7 @@ interface Props {
 
 const {
   profile,
-  views,
+  views = 0,
   class: customClass = "",
 } = defineProps<Props>();
 
@@ -19,19 +19,9 @@ const activeDay = computed(() => getMostActiveDay(profile));
 const topLanguages = computed(() => profile.languages.slice(0, 3));
 const langTotal = computed(() => topLanguages.value.reduce((sum, l) => sum + l.size, 0));
 
-const sortBy = ref<"stars" | "pinned">("stars");
-
-const sortOptions = [
-  { label: "Most Stars", value: "stars" as const },
-  { label: "Pinned Order", value: "pinned" as const },
-];
-
-const sortedRepos = computed(() => {
-  if (sortBy.value === "stars") {
-    return [...profile.pinnedRepositories].sort((a, b) => b.stargazerCount - a.stargazerCount);
-  }
-  return profile.pinnedRepositories;
-});
+const sortBy = inject(sortByKey) as Ref<"stars" | "pinned">;
+const sortOptions = inject(sortOptionsKey) as Ref<{ label: string; value: "stars" | "pinned" }[]>;
+const sortedRepos = inject(sortedReposKey) as ComputedRef<GitHubRepository[]>;
 
 const repoStats = computed(() => [
   {

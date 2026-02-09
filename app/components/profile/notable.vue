@@ -1,17 +1,7 @@
 <script lang="ts" setup>
-const sortOptions = [
-  { value: "stars" as const, label: "Most Stars" },
-  { value: "pinned" as const, label: "Pinned Order" },
-];
-
-const sortBy = ref<"stars" | "pinned">("stars");
-
-const profile = inject(profileKey) as ComputedRef<GitHubProfile>;
-
-const sortedRepos = computed(() => sortBy.value === "stars"
-  ? [...(profile?.value?.pinnedRepositories ?? [])].sort((a, b) => b.stargazerCount - a.stargazerCount)
-  : profile?.value?.pinnedRepositories,
-);
+const sortBy = inject(sortByKey) as Ref<"stars" | "pinned">;
+const sortOptions = inject(sortOptionsKey) as Ref<{ label: string; value: "stars" | "pinned" }[]>;
+const sortedRepos = inject(sortedReposKey) as ComputedRef<GitHubRepository[]>;
 </script>
 
 <template>

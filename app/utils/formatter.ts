@@ -22,7 +22,8 @@ export function formatDate(dateString: string): string {
   return useDateFormat(date, "MMM dd, yyyy").value;
 }
 
-export function formatJoinDate(dateString: string): string {
+export function formatJoinDate(dateString: string, style: "long" | "short" = "short"): string {
   const date = new Date(dateString);
-  return `Joined ${useDateFormat(date, "MMM YYYY").value}`;
+  const format = style === "long" ? "MMMM YYYY" : "MMM YYYY";
+  return `Joined ${useDateFormat(date, format).value}`;
 }

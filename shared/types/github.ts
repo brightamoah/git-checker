@@ -299,7 +299,21 @@ export const LANGUAGE_COLORS: Record<string, string> = {
   "Less": "#1d365d",
   "Makefile": "#427819",
   "Assembly": "#6E4C13",
-
+  "Hack": "#878787",
+  "EJS": "#a91e50",
+  "Haskell": "#5e5086",
+  "Lua": "#000080",
+  "Matlab": "#e16737",
+  "Objective-C": "#438eff",
+  "R": "#198CE7",
+  "Scala": "#c22d40",
+  "TeX": "#3D6117",
+  "Vim script": "#199f4b",
+  "Visual Basic": "#945db7",
+  "CoffeeScript": "#244776",
+  "F#": "#b845fc",
+  "PowerShell": "#012456",
+  "Groovy": "#e69f56",
 };
 
 export type RepoType = "original" | "fork" | "all";

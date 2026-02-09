@@ -25,7 +25,24 @@ onUnmounted(() => showControls.value = false);
 
 const profile = computed(() => data.value?.data as GitHubProfile);
 
+const sortBy = ref<"stars" | "pinned">("stars");
+
+const sortOptions = ref([
+  { label: "Most Stars", value: "stars" as const },
+  { label: "Pinned Order", value: "pinned" as const },
+]);
+
+const sortedRepos = computed(() => {
+  if (sortBy.value === "stars") {
+    return [...profile.value.pinnedRepositories].sort((a, b) => b.stargazerCount - a.stargazerCount);
+  }
+  return profile.value.pinnedRepositories;
+});
+
 provide(profileKey, profile);
+provide(sortByKey, sortBy);
+provide(sortOptionsKey, sortOptions);
+provide(sortedReposKey, sortedRepos);
 </script>
 
 <template>
@@ -61,7 +78,7 @@ provide(profileKey, profile);
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 .fade-enter-from,
 .fade-leave-to {

@@ -1,21 +1,16 @@
 <script setup lang="ts">
-const { template, updateTemplate } = useNavigationState();
+const { template } = useNavigationState();
 
 const templateOptions = ref([
   { value: "github", label: "GitHub Style" },
   { value: "bento", label: "Bento Grid" },
   { value: "minimal", label: "Minimal" },
 ]);
-
-const selected = computed({
-  get: () => template.value,
-  set: val => updateTemplate(val),
-});
 </script>
 
 <template>
   <USelect
-    v-model="selected"
+    v-model="template"
     :items="templateOptions"
     class="mx-auto w-48 cursor-pointer"
     size="lg"

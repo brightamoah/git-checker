@@ -233,7 +233,7 @@
             <div
               v-for="i in 4"
               :key="i"
-              class="bg-gray-50 dark:bg-gray-900 p-4 border border-gray-200 dark:border-gray-800 rounded-md"
+              class="bg-muted p-4 border border-muted rounded-md"
             >
               <!-- Header -->
               <div class="flex justify-between items-start mb-2">
