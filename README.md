@@ -23,9 +23,6 @@ npm run dev
 # pnpm
 pnpm dev
 
-# yarn
-yarn dev
-
 # bun
 bun run dev
 ```
