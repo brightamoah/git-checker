@@ -22,9 +22,6 @@ npm run dev
 
 # pnpm
 pnpm dev
-
-# bun
-bun run dev
 ```
 
 ## Production
