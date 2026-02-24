@@ -46,5 +46,4 @@ npm run preview
 pnpm preview
 
 # bun
-bun run preview
 ```
