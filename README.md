@@ -36,7 +36,6 @@ npm run build
 pnpm build
 
 # yarn
-yarn build
 ```
 
 Locally preview production build:
