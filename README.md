@@ -1,4 +1,4 @@
-# Nuxt Minimal Starter
+# Nu
 
 ## Setup
 
@@ -39,6 +39,3 @@ Locally preview production build:
 # npm
 npm run
 
-# pnpm
-pnpm preview
-```
