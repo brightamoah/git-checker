@@ -1,4 +1,4 @@
-# Nu
+# Nuxt
 
 ## Setup
 
